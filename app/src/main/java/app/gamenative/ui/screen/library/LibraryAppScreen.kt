@@ -185,6 +185,7 @@ import app.gamenative.ui.theme.PluviaTheme
 import app.gamenative.ui.theme.ThemedTitleText
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
+import com.winlator.container.Container
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -1476,6 +1477,8 @@ internal fun AppScreenContent(
                         }
                     }
 
+                    downloadDisplayDetails.html5SwitchHint?.invoke()
+
                     if (immersiveMode.isSupported && isInstalled) {
                         Row(
                             modifier = Modifier
@@ -1756,6 +1759,18 @@ internal fun AppScreenContent(
                     InfoCard(
                         label = stringResource(R.string.location),
                         value = displayInfo.installLocation,
+                        isCompact = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        focusableForNavigation = true,
+                    )
+                }
+
+                // wine gets NO row; the absence is the indicator, as with the library card badge.
+                if (displayInfo.runtime == Container.RUNTIME_WEBVIEW) {
+                    Spacer(modifier = Modifier.height(10.dp))
+                    InfoCard(
+                        label = stringResource(R.string.library_runtime_label),
+                        value = stringResource(R.string.library_runtime_value_webview),
                         isCompact = true,
                         modifier = Modifier.fillMaxWidth(),
                         focusableForNavigation = true,
